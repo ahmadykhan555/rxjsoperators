@@ -1,0 +1,18 @@
+<div class="demo-container">
+  <h3 class="title">RxJS Operators</h3>
+  <div class="nav-bar">
+    <a class="nav-bar__tab" routerLink='/' routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Basic</a>
+    <a class="nav-bar__tab" routerLink='/intermediate' routerLinkActive="active-link">Intermediate</a>
+    <a class="nav-bar__tab" routerLink='/advance' routerLinkActive="active-link">Advance</a>
+  </div>
+  <div class="operators-container">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="output-console">
+    <h4 class="operator-title">Demo {{ operatorService.activeOperator$ |  async}}</h4>
+    <textarea class="output-console" readonly>{{operatorService.output$ |  async}}</textarea>
+    <div class="output-console__actions">
+      <button class="btn btn-danger" (click)="operatorService.stopExecution()">Stop</button>
+    </div>
+  </div>
+</div>

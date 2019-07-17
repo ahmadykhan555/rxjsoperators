@@ -1,0 +1,7 @@
+<div class="intermediate-opertors">
+    <button
+      *ngFor="let operator of operators"
+      class="btn btn-primary operator"
+      (click)="executeOperation(operator)"
+    >{{operator}}</button>
+  </div>
