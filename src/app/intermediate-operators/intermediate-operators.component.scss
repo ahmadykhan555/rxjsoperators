@@ -1,5 +1,10 @@
-.operator {
-  margin: 15px;
-  text-transform: capitalize;
-  min-width: 200px;
+.intermediate-operators {
+  height: calc(100% - 50px);
+  overflow-y: scroll;
+
+  .operator {
+    margin: 15px;
+    text-transform: capitalize;
+    min-width: 200px;
+  }
 }
