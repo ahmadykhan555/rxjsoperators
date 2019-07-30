@@ -20,7 +20,8 @@ import {
   last,
   concatAll,
   concatMap,
-  concatMapTo
+  concatMapTo,
+  single
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -316,7 +317,18 @@ export class OperatorService {
   }
 
   demoSingle() {
+    /*
+      * can be used to check whether only one value exists
+      * will throw an error if more than one value is found
+      * can be used to check where only one value satisfying a condition is allowed
+      * outputs the single value found.
+    */
 
+    rxjs.range(0, 9).pipe(
+      // single() // throws an error since more than one value exists
+      single(n => n >= 8)
+    // tslint:disable-next-line:max-line-length
+    ).subscribe(v => this.logOutput('In a range from 0-8 with condition value >= 8, we will only get one value (8) that satisfies this conditon: ' + v));
   }
 
   demoIgnoreElements() {
