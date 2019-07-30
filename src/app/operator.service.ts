@@ -23,7 +23,9 @@ import {
   concatMapTo,
   single,
   ignoreElements,
-  sample
+  sample,
+  reduce,
+  scan
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -53,6 +55,7 @@ export enum Operators {
   IgnoreElements = 'ignore elements',
   Sample = 'sample',
   Reduce = 'reduce',
+  Scan = 'scan'
 }
 
 @Injectable({
@@ -360,7 +363,25 @@ export class OperatorService {
   }
 
   demoReduce() {
+    /*
+      * Similar to the array.reduce
+      * triggers only when the observable completes.
+    */
 
+    rxjs.interval(100).pipe(
+      take(20),
+      reduce((acc, v) => v + acc, 0)
+    ).subscribe(v => this.logOutput('The sum of first 20 is: ' + v));
+  }
+
+  demoScan() {
+    /*
+      * Emits value of accumulator every time the accumulator changes.
+    */
+    rxjs.interval(100).pipe(
+      take(20),
+      scan((acc, v) => v + acc, 0)
+    ).subscribe(v => this.logOutput('Accumulator now: ' + v));
   }
 
 
@@ -405,6 +426,7 @@ export class OperatorService {
       'ignore elements',
       'sample',
       'reduce',
+      'scan'
     ];
   }
 

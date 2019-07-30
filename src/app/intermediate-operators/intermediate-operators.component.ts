@@ -33,6 +33,8 @@ export class IntermediateOperatorsComponent implements OnInit {
       case Operators.Single: { return this.operatorService.demoSingle(); }
       case Operators.IgnoreElements: { return this.operatorService.demoIgnoreElements(); }
       case Operators.Sample: { return this.operatorService.demoSample(); }
+      case Operators.Reduce: { return this.operatorService.demoReduce(); }
+      case Operators.Scan: { return this.operatorService.demoScan(); }
     }
   }
 }
