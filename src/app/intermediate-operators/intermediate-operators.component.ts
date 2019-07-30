@@ -27,6 +27,9 @@ export class IntermediateOperatorsComponent implements OnInit {
       case Operators.SkipUntil: { return this.operatorService.demoSkipUntil(); }
       case Operators.Last: { return this.operatorService.demoLast(); }
       case Operators.Concat: { return this.operatorService.demoConcat(); }
+      case Operators.ConcatAll: { return this.operatorService.demoConcatAll(); }
+      case Operators.ConcatMap: { return this.operatorService.demoConcatMap(); }
+      case Operators.ConcatMapTo: { return this.operatorService.demoConcatMapTo(); }
     }
   }
 }

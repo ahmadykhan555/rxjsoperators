@@ -17,7 +17,10 @@ import {
   skip,
   skipWhile,
   skipUntil,
-  last
+  last,
+  concatAll,
+  concatMap,
+  concatMapTo
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -269,15 +272,47 @@ export class OperatorService {
   }
 
   demoConcatAll() {
+    /*
+      * Concatenates observables.
+      * we will have observables that omit observables as values.
+      * concatenates values from each observable.
+      * Similar working as of a normal concat operator.
+    */
 
+    const source$ = rxjs.of(
+      rxjs.range(1, 9).pipe(map(v => v + ' 1st')),
+      rxjs.interval(100).pipe(
+        take(5),
+        map(v => v + ' 2nd')
+      )
+    );
+    source$.pipe(concatAll()).subscribe(v => this.logOutput(v));
   }
 
   demoConcatMap() {
+    /*
+      * Similar to map
+      * a simple map doesn't know whether a value is observable or not and if it is it doesnt know to subscribe to it.
+      * ConcatMap runs like a map but will subscribe to each of the observable.
+      * with a normal map operator it simply will output the returned observable and not the values emitted by that observable.
+      * concatMap will subscribe to the value emitted and concatenate them to the next.
+    */
+    rxjs.range(1, 9).pipe(
+      concatMap(v => rxjs.range(0, v + 1).pipe(
+        map(value => value + ' from stream: ' + v))
+      )
+    ).subscribe(v => console.log(v));
 
   }
 
   demoConcatMapTo() {
-
+    /*
+      * Similar to concatMap, however, here we can specify the observable we want to create irrespective to omitted value.
+      * useful if we need to map to the same observable.
+    */
+    rxjs.range(1, 9).pipe(
+      concatMapTo(rxjs.range(0, 10))
+    ).subscribe(v => console.log(v));
   }
 
   demoSingle() {
