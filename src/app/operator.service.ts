@@ -25,7 +25,10 @@ import {
   ignoreElements,
   sample,
   reduce,
-  scan
+  scan,
+  groupBy,
+  mergeMap,
+  toArray
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -55,7 +58,8 @@ export enum Operators {
   IgnoreElements = 'ignore elements',
   Sample = 'sample',
   Reduce = 'reduce',
-  Scan = 'scan'
+  Scan = 'scan',
+  GroupBy = 'group by'
 }
 
 @Injectable({
@@ -384,7 +388,16 @@ export class OperatorService {
     ).subscribe(v => this.logOutput('Accumulator now: ' + v));
   }
 
+  demoGroupBy() {
+    /*
+      * Groups things based on provided function.
+    */
 
+    rxjs.range(0, 20).pipe(
+      groupBy(n => n % 3),
+      mergeMap(group => group.pipe(toArray()))
+    ).subscribe(v => console.log(v));
+  }
 
   // helpers
   stopExecution() {

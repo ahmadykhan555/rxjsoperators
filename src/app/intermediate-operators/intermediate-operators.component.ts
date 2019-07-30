@@ -35,6 +35,7 @@ export class IntermediateOperatorsComponent implements OnInit {
       case Operators.Sample: { return this.operatorService.demoSample(); }
       case Operators.Reduce: { return this.operatorService.demoReduce(); }
       case Operators.Scan: { return this.operatorService.demoScan(); }
+      case Operators.GroupBy: { return this.operatorService.demoGroupBy(); }
     }
   }
 }
