@@ -31,6 +31,7 @@ export class IntermediateOperatorsComponent implements OnInit {
       case Operators.ConcatMap: { return this.operatorService.demoConcatMap(); }
       case Operators.ConcatMapTo: { return this.operatorService.demoConcatMapTo(); }
       case Operators.Single: { return this.operatorService.demoSingle(); }
+      case Operators.IgnoreElements: { return this.operatorService.demoIgnoreElements(); }
     }
   }
 }

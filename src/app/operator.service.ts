@@ -21,7 +21,8 @@ import {
   concatAll,
   concatMap,
   concatMapTo,
-  single
+  single,
+  ignoreElements
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -332,7 +333,18 @@ export class OperatorService {
   }
 
   demoIgnoreElements() {
+    /*
+      * Used to ignore elements from a stream
+    */
 
+    this.output$.next('Running interval 100ms apart for 20 iterations, will ignore all, you will see a complete message in 2 sec');
+    rxjs.interval(100).pipe(
+      take(20),
+      ignoreElements()
+    ).subscribe({
+      next: v => console.log(v),
+      complete: () => this.logOutput('Complete')
+    });
   }
 
   demoSample() {
