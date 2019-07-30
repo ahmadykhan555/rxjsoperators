@@ -70,7 +70,19 @@ export enum Operators {
   MergeMap = 'merge map',
   Partition = 'partition',
   Throttle = 'throttle',
-  ThrottleTime = 'throttle time'
+  ThrottleTime = 'throttle time',
+  Zip = 'zip',
+  CombineLatest = 'combine latest',
+  ForkJoin = 'fork join',
+  Publish = 'publish',
+  Share = 'share',
+  Multicast = 'multicast',
+  Race = 'race',
+  Retry = 'retry',
+  RetryWhen = 'retry when',
+  WithLatestFrom = 'with latest from',
+  Let = 'let',
+  Debounce = 'debounce',
 }
 
 @Injectable({
@@ -529,7 +541,20 @@ export class OperatorService {
   }
 
   advanceOperators() {
-    return [];
+    return [
+      'zip',
+      'combine latest',
+      'fork join',
+      'publish',
+      'share',
+      'multicast',
+      'race',
+      'retry',
+      'retry when',
+      'with latest from',
+      'let',
+      'debounce'
+    ];
   }
 
   logOutput(output: any) {
