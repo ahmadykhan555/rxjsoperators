@@ -22,7 +22,8 @@ import {
   concatMap,
   concatMapTo,
   single,
-  ignoreElements
+  ignoreElements,
+  sample
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -348,7 +349,14 @@ export class OperatorService {
   }
 
   demoSample() {
-
+    /*
+      * Sample from source every time the observable fires.
+    */
+    this.output$.next('This will sample from the interval running after every 2sec. The values of interval are 100ms apart ');
+    const source$ = rxjs.interval(100);
+    source$.pipe(
+      sample(rxjs.timer(0, 2000))
+    ).subscribe(v => this.logOutput(v));
   }
 
   demoReduce() {
