@@ -16,58 +16,17 @@ export class IntermediateOperatorsComponent implements OnInit {
 
   executeOperation(operator: Operators) {
     switch (operator) {
-      case Operators.Delay: {
-        this.operatorService.demoDelay();
-        return;
-      }
-
-      case Operators.DelayWhen: {
-        this.operatorService.demoDelayWhen();
-        return;
-      }
-
-      case Operators.Take: {
-        this.operatorService.demoTake();
-        return;
-      }
-
-      case Operators.TakeUntil: {
-        this.operatorService.demoTakeUntil();
-        return;
-      }
-
-      case Operators.TakeWhile: {
-        this.operatorService.demoTakeWhile();
-        return;
-      }
-
-      case Operators.Throw: {
-        this.operatorService.demoThrow();
-        return;
-      }
-
-      case Operators.Skip: {
-        this.operatorService.demoSkip();
-        return;
-      }
-
-      case Operators.SkipWhile: {
-        this.operatorService.demoSkipWhile();
-        return;
-      }
-
-      case Operators.SkipUntil: {
-        this.operatorService.demoSkipUntil();
-        return;
-      }
-
-      case Operators.Last: {
-        return this.operatorService.demoLast();
-      }
-
-      case Operators.Concat: {
-        return this.operatorService.demoConcat();
-      }
+      case Operators.Delay: { return this.operatorService.demoDelay(); }
+      case Operators.DelayWhen: { return this.operatorService.demoDelayWhen(); }
+      case Operators.Take: { return this.operatorService.demoTake(); }
+      case Operators.TakeUntil: { return this.operatorService.demoTakeUntil(); }
+      case Operators.TakeWhile: { return this.operatorService.demoTakeWhile(); }
+      case Operators.Throw: { return this.operatorService.demoThrow(); }
+      case Operators.Skip: { return this.operatorService.demoSkip(); }
+      case Operators.SkipWhile: { return this.operatorService.demoSkipWhile(); }
+      case Operators.SkipUntil: { return this.operatorService.demoSkipUntil(); }
+      case Operators.Last: { return this.operatorService.demoLast(); }
+      case Operators.Concat: { return this.operatorService.demoConcat(); }
     }
   }
 }

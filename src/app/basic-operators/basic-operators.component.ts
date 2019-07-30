@@ -18,39 +18,13 @@ export class BasicOperatorsComponent implements OnInit {
 
   executeOperation(operator: Operators) {
     switch (operator) {
-      case Operators.Filter: {
-        this.operatorService.demoFilter();
-        return;
-      }
-      case Operators.Empty: {
-        this.operatorService.demoEmpty();
-        return;
-      }
-      case Operators.Pluck: {
-        this.operatorService.demoPluck();
-        return;
-      }
-      case Operators.StartWith: {
-        this.operatorService.demoStartWith();
-        return;
-      }
-      case Operators.Every: {
-        this.operatorService.demoEvery();
-        return;
-      }
-      case Operators.DistinctUntilChanged: {
-        this.operatorService.demoDistinctUntilChanged();
-        return;
-      }
-      case Operators.DefaultIfEmpty: {
-        this.operatorService.demoDefaultIfEmpty();
-        return;
-      }
+      case Operators.Filter: { return this.operatorService.demoFilter(); }
+      case Operators.Empty: { return this.operatorService.demoEmpty(); }
+      case Operators.Pluck: { return this.operatorService.demoPluck(); }
+      case Operators.StartWith: { return this.operatorService.demoStartWith(); }
+      case Operators.Every: { return this.operatorService.demoEvery(); }
+      case Operators.DistinctUntilChanged: { return this.operatorService.demoDistinctUntilChanged(); }
+      case Operators.DefaultIfEmpty: { return this.operatorService.demoDefaultIfEmpty(); }
     }
-  }
-
-  logToOutputConsole(result) {
-    this.output += result;
-    console.log('Logging: ', this.output)
   }
 }
