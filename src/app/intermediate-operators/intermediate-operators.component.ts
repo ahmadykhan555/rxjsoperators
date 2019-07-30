@@ -60,6 +60,14 @@ export class IntermediateOperatorsComponent implements OnInit {
         this.operatorService.demoSkipUntil();
         return;
       }
+
+      case Operators.Last: {
+        return this.operatorService.demoLast();
+      }
+
+      case Operators.Concat: {
+        return this.operatorService.demoConcat();
+      }
     }
   }
 }
