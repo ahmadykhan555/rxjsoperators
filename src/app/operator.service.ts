@@ -16,7 +16,8 @@ import {
   takeWhile,
   skip,
   skipWhile,
-  skipUntil
+  skipUntil,
+  last
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -36,7 +37,16 @@ export enum Operators {
   Throw = 'throw',
   Skip = 'skip',
   SkipWhile = 'skip while',
-  SkipUntil = 'skip until'
+  SkipUntil = 'skip until',
+  Last = 'last',
+  Concat = 'concat',
+  ConcatAll = 'concat all',
+  ConcatMap = 'concat map',
+  ConcatMapTo = 'concat map to',
+  Single = 'single',
+  IgnoreElements = 'ignore elements',
+  Sample = 'sample',
+  Reduce = 'reduce',
 }
 
 @Injectable({
@@ -227,6 +237,65 @@ export class OperatorService {
       skipUntil(rxjs.timer(2000))
     ).subscribe(v => this.logOutput(v));
   }
+
+  demoLast() {
+  // emits the last value of source upon completion that satisfies a condition.
+  // const source$ = rxjs.range(1, 9).pipe(
+  // last() this will fire once the source completes and will fire the last value since there is no condition specified.
+  // );
+
+    const source$ = rxjs.interval(100).pipe(
+      take(20),
+      tap((v) => this.logOutput(v)),
+      // last() // if we omit the take operator, last will never execute since the source never completes.
+            // However, including a take operator forces the stream to complete and thus the last value is outputted
+      last(n => n % 2 === 0) // this will wait for source to complete then check the last value that matches this condition and logs that.
+    );
+    source$.subscribe(v => this.logOutput(' last is : ' + v), null, () => console.log('Completed'));
+
+  }
+
+  demoConcat() {
+    /*
+      * loosely like the array.prototype.concat
+      * concatenates one stream to the end of other
+      * If end doesn't exist it wont throw an error but there wont be any 'true' concatenation to observe since the source doesn't end
+    */
+
+    // const source1$ = rxjs.range(1, 9).pipe(map(v =>  v + ' 1st stream'));
+    const source1$ = rxjs.interval(100).pipe(map(v =>  v + ' 1st stream'), take(5));
+    const source2$ = rxjs.range(1, 20).pipe(map(v =>  v + ' 2nd stream'));
+    rxjs.concat(source1$, source2$).subscribe(v => this.logOutput(v));
+  }
+
+  demoConcatAll() {
+
+  }
+
+  demoConcatMap() {
+
+  }
+
+  demoConcatMapTo() {
+
+  }
+
+  demoSingle() {
+
+  }
+
+  demoIgnoreElements() {
+
+  }
+
+  demoSample() {
+
+  }
+
+  demoReduce() {
+
+  }
+
 
 
   // helpers
