@@ -31,7 +31,9 @@ import {
   toArray,
   merge,
   mergeAll,
-  partition
+  partition,
+  throttle,
+  throttleTime
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -459,6 +461,23 @@ export class OperatorService {
     odd$.subscribe(v => this.logOutput('ODD: ' + v));
   }
 
+  // throttle => control the time between subsequent emissions
+  demoThrottle() {
+    // throttle based on an observable, throttle until values from observable are emitted
+    this.output$.next('Throttle the emission (per 100ms) until x * 2000ms has elapsed');
+    rxjs.interval(100).pipe(
+      throttle( () => rxjs.interval(2000))
+    ).subscribe(v => this.logOutput(v));
+  }
+
+  demoThrottleTime() {
+    // throttle by time in ms
+    this.output$.next('Throttle the emission (per 100ms) by 1 sec');
+    rxjs.interval(100).pipe(
+      throttleTime(1000)
+    ).subscribe(v => this.logOutput(v));
+  }
+
   // helpers
   stopExecution() {
     this.unsubscribe.next();
@@ -504,8 +523,8 @@ export class OperatorService {
       'merge all',
       'merge map',
       'partition',
-      'Throttle',
-      'Throttle time'
+      'throttle',
+      'throttle time'
     ];
   }
 

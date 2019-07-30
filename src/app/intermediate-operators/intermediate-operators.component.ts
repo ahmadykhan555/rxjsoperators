@@ -40,6 +40,8 @@ export class IntermediateOperatorsComponent implements OnInit {
       case Operators.MergeAll: { return this.operatorService.demoMergeAll(); }
       case Operators.MergeMap: { return this.operatorService.demoMergeMap(); }
       case Operators.Partition: { return this.operatorService.demoPartition(); }
+      case Operators.Throttle: { return this.operatorService.demoThrottle(); }
+      case Operators.ThrottleTime: { return this.operatorService.demoThrottleTime(); }
     }
   }
 }
