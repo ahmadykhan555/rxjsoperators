@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OperatorService, Operators } from '../operator.service';
+import { Operators, OperatorService } from '../operator.service';
 
 @Component({
   selector: 'app-intermediate-operators',
@@ -36,6 +36,10 @@ export class IntermediateOperatorsComponent implements OnInit {
       case Operators.Reduce: { return this.operatorService.demoReduce(); }
       case Operators.Scan: { return this.operatorService.demoScan(); }
       case Operators.GroupBy: { return this.operatorService.demoGroupBy(); }
+      case Operators.Merge: { return this.operatorService.demoMerge(); }
+      case Operators.MergeAll: { return this.operatorService.demoMergeAll(); }
+      case Operators.MergeMap: { return this.operatorService.demoMergeMap(); }
+      case Operators.Partition: { return this.operatorService.demoPartition(); }
     }
   }
 }

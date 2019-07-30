@@ -28,7 +28,10 @@ import {
   scan,
   groupBy,
   mergeMap,
-  toArray
+  toArray,
+  merge,
+  mergeAll,
+  partition
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -59,7 +62,13 @@ export enum Operators {
   Sample = 'sample',
   Reduce = 'reduce',
   Scan = 'scan',
-  GroupBy = 'group by'
+  GroupBy = 'group by',
+  Merge = 'merge',
+  MergeAll = 'merge all',
+  MergeMap = 'merge map',
+  Partition = 'partition',
+  Throttle = 'throttle',
+  ThrottleTime = 'throttle time'
 }
 
 @Injectable({
@@ -399,6 +408,57 @@ export class OperatorService {
     ).subscribe(v => console.log(v));
   }
 
+  // Merge family, combines observables into one and fires all at once unlike concat where the order is respected
+
+  demoMerge() {
+    /*
+      * combines observables into one.
+      * fire simultaneously
+    */
+
+    const source1$ = rxjs.interval(300).pipe(map(v => 'Post from source 1 ' + v));
+    const source2$ = rxjs.interval(200).pipe(map(v => 'Post from source 2 ' + v));
+    source1$.pipe(
+      merge(source2$)
+    ).subscribe(v => this.logOutput(v));
+  }
+
+  demoMergeAll() {
+    const source1$ = rxjs.interval(300).pipe(map(v => 'Post from source 1 ' + v));
+    const source2$ = rxjs.interval(200).pipe(map(v => 'Post from source 2 ' + v));
+    rxjs.of(source1$, source2$).pipe(
+      mergeAll()
+    ).subscribe(v => this.logOutput(v));
+  }
+
+  demoMergeMap() {
+    const source1$ = rxjs.interval(300).pipe(map(v => 'Post from source 1 ' + v));
+    const source2$ = rxjs.interval(200).pipe(map(v => 'Post from source 2 ' + v));
+    const feed = {
+      s1: source1$,
+      s2: source2$
+    };
+    const names = ['s1', 's2'];
+
+    rxjs.from(names).pipe(
+      mergeMap(name => feed[name])
+    ).subscribe(v => this.logOutput(v));
+  }
+
+  demoPartition() {
+    /*
+      * Partition is a mixture of filter and group by.
+      * returns 2 observables
+      * subscribe to each separately
+    */
+    const [even$ , odd$] = rxjs.range(0, 20).pipe(
+      partition(v => v %2 === 0)
+    );
+
+    even$.subscribe(v => this.logOutput('EVEN: ' + v));
+    odd$.subscribe(v => this.logOutput('ODD: ' + v));
+  }
+
   // helpers
   stopExecution() {
     this.unsubscribe.next();
@@ -439,7 +499,13 @@ export class OperatorService {
       'ignore elements',
       'sample',
       'reduce',
-      'scan'
+      'scan',
+      'merge',
+      'merge all',
+      'merge map',
+      'partition',
+      'Throttle',
+      'Throttle time'
     ];
   }
 
