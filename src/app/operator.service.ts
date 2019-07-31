@@ -33,9 +33,9 @@ import {
   mergeAll,
   partition,
   throttle,
-  throttleTime
+  throttleTime,
+  mapTo
 } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 
 export enum Operators {
   Filter = 'filter',
@@ -516,6 +516,30 @@ export class OperatorService {
       const [constant, dynamic] = valueGroup;
       this.logOutput(' I will stay unchanged see: ' + constant + ' But I am soooo dynamic: ' + dynamic);
     });
+  }
+
+  demoForkJoin() {
+    /*
+      * two parts fork and join
+      * fork: running all at once
+      * join: taking all results and joining them into one result
+      * emits when all emit a value.
+      * ideal when a number of api responses are needed for an action to complete.
+    */
+   const getNameApi = rxjs.timer(1000).pipe(
+      mapTo({name: 'AYK'}),
+      tap(v => this.logOutput('Got response for name: ' + v.name + ' in 1 sec')));
+   const getSkills = rxjs.timer(2500).pipe(
+      mapTo({skills: ['rxjs', 'angular', 'react', 'node', 'android', 'ionic']}),
+      tap(v => this.logOutput('Got response for skills: ' + v.skills + ' in 2.5 sec'))
+    );
+
+   rxjs.forkJoin(getNameApi, getSkills)
+   .subscribe(res => {
+     const [nameObj, skillsObj] = res;
+     this.logOutput('Joining responses ');
+     this.logOutput('Name: ' + nameObj.name + ' skills: ' + skillsObj.skills);
+   } );
   }
 
   // helpers
