@@ -490,6 +490,21 @@ export class OperatorService {
     ).subscribe(v => this.logOutput(v));
   }
 
+  demoZip() {
+    /*
+      * Used where two or more sources have different paced emissions
+      * indexes must match
+      * will emit wrt the slowest emission
+      * linked by index
+      * outputted as an array of emitted values grouped at one index
+      * example below will group the number with its cube
+    */
+    const slowSource$ = rxjs.interval(500);
+    const fastSource$ = rxjs.interval(250).pipe(map(v => Math.pow(v, 3)));
+    this.output$.next('This example shows a number and its cube grouped at an index');
+    rxjs.zip(slowSource$, fastSource$).subscribe(v => this.logOutput(v));
+  }
+
   // helpers
   stopExecution() {
     this.unsubscribe.next();

@@ -16,7 +16,7 @@ export class AdvanceOperatorsComponent implements OnInit {
 
   executeOperation(operator: Operators) {
     switch (operator) {
-      case Operators.Zip: { return; }
+      case Operators.Zip: { return this.operatorService.demoZip(); }
       case Operators.CombineLatest: { return; }
       case Operators.ForkJoin: { return; }
       case Operators.Publish: { return; }
