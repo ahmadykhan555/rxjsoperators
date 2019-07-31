@@ -505,6 +505,19 @@ export class OperatorService {
     rxjs.zip(slowSource$, fastSource$).subscribe(v => this.logOutput(v));
   }
 
+  demoCombineLatest() {
+    /*
+      * 1st emission once all observables have emitted at least one value
+      * continues emission if any observable emits value, updates that observable and emits the whole as a bundle
+    */
+    const staticObservable$ = rxjs.of(10);
+    const interval$ = rxjs.interval(1000);
+    rxjs.combineLatest(staticObservable$, interval$).subscribe(valueGroup => {
+      const [constant, dynamic] = valueGroup;
+      this.logOutput(' I will stay unchanged see: ' + constant + ' But I am soooo dynamic: ' + dynamic);
+    });
+  }
+
   // helpers
   stopExecution() {
     this.unsubscribe.next();
